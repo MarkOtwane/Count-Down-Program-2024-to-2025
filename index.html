@@ -67,11 +67,11 @@
 	<body>
 		<div class="container">
 			<h1 id="countdown"></h1>
-			<div class="subtitle">Countdown to 2026</div>
+			<div class="subtitle">Countdown to the end of 2026</div>
 			<div class="footer">Developed by Microtech Solutions Limited</div>
 		</div>
 		<script>
-			const targetDate = new Date("Jan 1, 2026 00:00:00").getTime();
+			const targetDate = new Date("Dec 31, 2026 23:59:59").getTime();
 			const timer = setInterval(() => {
 				const now = new Date().getTime();
 				const distance = targetDate - now;
