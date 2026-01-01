@@ -3,13 +3,13 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta property="og:title" content="Countdown to 2026" />
-		<meta property="og:description" content="Live countdown to the New Year 2026 — click to watch the timer!" />
+		<meta property="og:title" content="New Year Countdown" />
+		<meta property="og:description" content="Live countdown to the next New Year — automatically updates each year!" />
 		<meta property="og:image" content="https://yourdomain.com/your-preview-image.png" />
 		<meta property="og:url" content="https://count-down-program-2025-to-2026.vercel.app/" />
 		<meta name="twitter:card" content="summary_large_image" />
 
-		<title>Countdown to 2026</title>
+		<title>New Year Countdown</title>
 		<style>
 			body {
 				font-family: "Arial", sans-serif;
@@ -32,8 +32,19 @@
 				max-width: 600px;
 			}
 			h1 {
-				font-size: 80px;
+				font-size: 60px;
 				margin: 0;
+				text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+			}
+			.progress {
+				font-size: 24px;
+				margin: 20px 0;
+				text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+			}
+			.remaining {
+				font-size: 48px;
+				margin: 20px 0;
+				color: #fdbb2d;
 				text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 			}
 			.subtitle {
@@ -48,7 +59,10 @@
 			}
 			@media (max-width: 600px) {
 				h1 {
-					font-size: 60px;
+					font-size: 40px;
+				}
+				.remaining {
+					font-size: 36px;
 				}
 				.subtitle {
 					font-size: 20px;
@@ -56,7 +70,10 @@
 			}
 			@media (max-width: 400px) {
 				h1 {
-					font-size: 40px;
+					font-size: 32px;
+				}
+				.remaining {
+					font-size: 28px;
 				}
 				.subtitle {
 					font-size: 16px;
@@ -66,23 +83,33 @@
 	</head>
 	<body>
 		<div class="container">
-			<h1 id="countdown"></h1>
-			<div class="subtitle">Countdown to the end of 2026</div>
+			<h1 id="title">Countdown to Next Year</h1>
+			<div class="remaining" id="countdown"></div>
+			<div class="subtitle" id="subtitle">Time remaining</div>
 			<div class="footer">Developed by Microtech Solutions Limited</div>
 		</div>
 		<script>
-			const targetDate = new Date("Dec 31, 2026 23:59:59").getTime();
+			const now = new Date();
+			const currentYear = now.getFullYear();
+			const nextYear = currentYear + 1;
+			const targetDate = new Date(`Jan 1, ${nextYear} 00:00:00`).getTime();
+			
+			document.getElementById("title").innerText = `Countdown to ${nextYear}`;
+			document.getElementById("subtitle").innerText = `Time remaining in ${currentYear}`;
+			
 			const timer = setInterval(() => {
 				const now = new Date().getTime();
 				const distance = targetDate - now;
+				
 				if (distance < 0) {
 					clearInterval(timer);
-					document.getElementById("countdown").innerText = "Deliverance Church wishes you a happy new year";
+					location.reload();
 				} else {
 					const days = Math.floor(distance / (1000 * 60 * 60 * 24));
 					const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 					const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 					const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+					
 					document.getElementById("countdown").innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 				}
 			}, 1000);
